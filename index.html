@@ -97,6 +97,9 @@ h2{margin:0;font-size:17px;font-weight:800}
 nav.bottom{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid #E1E8DD;padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-around;z-index:5}
 .navbtn{background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:68px;min-height:56px;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer}
 .navbtn[aria-current="page"]{color:var(--green);font-weight:800}
+.demo{margin-top:8px;display:flex;gap:10px;align-items:flex-start;background:#FFF4D1;border:2px solid var(--yellow);border-radius:16px;padding:12px 14px;color:var(--ink);font-size:14px;line-height:1.4}
+.demo strong{display:block;font-size:15px;font-weight:900}
+.ex{display:inline-block;margin-left:8px;vertical-align:middle;background:#FFF4D1;border:1.5px solid var(--yellow);color:var(--ink);font-size:11px;font-weight:800;letter-spacing:.06em;padding:4px 8px;border-radius:8px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -113,6 +116,11 @@ nav.bottom{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-
       <button class="iconbtn" aria-label="Profil"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></button>
     </div>
   </header>
+
+  <div class="demo" role="note">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#13221A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:0 0 auto;margin-top:1px"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.5"/></svg>
+    <div><strong>Version de démonstration — annonces fictives</strong>Les terrains, prix et papiers affichés ici sont des exemples. Aucun terrain n'est réellement à vendre sur ce site pour le moment.</div>
+  </div>
 
   <section class="hero" id="karibu">
     <svg class="rings" width="190" height="190" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" fill="none" stroke="#F6C343" stroke-width="3"/><circle cx="50" cy="50" r="30" fill="none" stroke="#FFFFFF" stroke-width="3"/></svg>
@@ -255,7 +263,7 @@ nav.bottom{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-
     $('grid').innerHTML = list.map(function(l){
       var t = TYPES[l.kind];
       return '<article class="card">' +
-        '<div class="card-top"><div class="price">' + l.price + 'M <small>BIF</small></div>' +
+        '<div class="card-top"><div class="price">' + l.price + 'M <small>BIF</small><span class="ex">EXEMPLE</span></div>' +
         '<button class="iconbtn fav" type="button" data-fav="' + l.id + '" aria-label="Ivyo wipfuza" aria-pressed="' + (favs[l.id] ? 'true' : 'false') + '">' + heart + '</button></div>' +
         '<div class="photo" role="img" aria-label="Ifoto y\'itongo — ' + esc(l.zone) + '" style="background:' + t.bg + '">' + photoIco + '<span>[Ifoto nyayo y\'itongo]</span></div>' +
         '<div class="body">' +
