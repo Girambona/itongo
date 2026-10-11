@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="rn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Itongo.bi — Gura canke gurisha itongo i Bujumbura.">
+<title>Itongo.bi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap">
+<style>
+:root{
+  --green:#0B5D3B; --green-dk:#073D27; --yellow:#F6C343; --gold:#A87C06;
+  --red:#C8102E; --ground:#F3F6F1; --card:#FFFFFF; --ink:#13221A; --muted:#4A5A50;
+  --line:#DCE6D8; --soft:#EAF3E6;
+  --font:"Archivo", "Helvetica Neue", Arial, sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.4}
+button,input{font-family:inherit}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:env(safe-area-inset-top,0px) 170px}
+
+header.top{display:flex;align-items:center;justify-content:space-between;padding-block:16px 8px}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo-mark{width:38px;height:38px;border-radius:11px;background:var(--green);display:grid;place-items:center}
+.logo-word{font-size:23px;font-weight:900;letter-spacing:-.03em;color:var(--green-dk)}
+.logo-word span{color:var(--gold)}
+.icons{display:flex;gap:8px}
+.iconbtn{width:44px;height:44px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);display:grid;place-items:center;color:var(--ink);cursor:pointer;position:relative}
+.dot{position:absolute;top:9px;right:10px;width:9px;height:9px;border-radius:50%;background:var(--red);border:2px solid var(--card)}
+
+.hero{margin-top:8px;padding:24px 20px 22px;border-radius:26px;background:var(--green);color:#FFFFFF;position:relative;overflow:hidden}
+.hero .rings{position:absolute;right:-50px;top:-50px;opacity:.22}
+.tag{display:inline-block;background:var(--yellow);color:var(--ink);font-size:11px;font-weight:800;padding:6px 10px;border-radius:999px;letter-spacing:.06em}
+.hero h1{margin:14px 0 0;font-size:clamp(30px,6vw,48px);line-height:1.04;font-weight:900;letter-spacing:-.025em;text-wrap:balance;max-width:16ch}
+.hero p{margin:12px 0 0;font-size:16px;color:#D9EBDD;max-width:46ch}
+
+.filters{display:grid;gap:16px;margin-top:18px}
+@media (min-width:760px){.filters{grid-template-columns:1fr 1fr}.search{grid-column:1/-1}}
+.search{display:flex;align-items:center;gap:10px;min-height:56px;padding:0 16px;background:var(--card);border:1.5px solid var(--line);border-radius:16px}
+.search b{font-size:14px;color:var(--green-dk);white-space:nowrap}
+.search input{flex:1;min-width:0;border:0;outline:none;font-size:15px;background:transparent;color:var(--ink)}
+.panel{background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:16px;min-width:0}
+.panel-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+h2{margin:0;font-size:17px;font-weight:800}
+.small{font-size:12px;font-weight:600;color:var(--muted)}
+.range-label{margin-top:10px;font-size:22px;font-weight:900;color:var(--green);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.slider{display:grid;grid-template-columns:36px 1fr;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--muted)}
+.slider input{width:100%;accent-color:var(--green);height:30px;margin:0}
+.ends{display:flex;justify-content:space-between;padding-left:44px;font-size:11px;font-weight:600;color:var(--muted)}
+.chips{display:flex;gap:8px;overflow-x:auto;margin:12px -16px 0;padding:0 16px 2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;height:42px;padding:0 15px;border-radius:999px;border:1.5px solid #CFDCCB;background:var(--card);color:var(--ink);font-size:13px;font-weight:700;white-space:nowrap;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#FFFFFF}
+
+.results-head{display:flex;align-items:center;gap:10px;margin:26px 0 12px}
+.results-head h2{font-size:22px;font-weight:900;letter-spacing:-.02em}
+.results-head .pulse{width:10px;height:10px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 4px #FBEBBE}
+.grid{display:grid;gap:16px}
+@media (min-width:760px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1100px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.card{background:var(--card);border-radius:22px;overflow:hidden;box-shadow:0 1px 0 #E1E8DD,0 12px 26px -18px rgba(7,61,39,.45);display:flex;flex-direction:column}
+.card-top{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 12px 18px}
+.price{font-size:40px;line-height:1;font-weight:900;color:var(--green);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.price small{font-size:18px;font-weight:800;letter-spacing:0}
+.fav{border-radius:50%}
+.fav[aria-pressed="true"] svg path{fill:var(--red)}
+.photo{height:210px;margin:0 10px;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--green-dk);font-size:12px;font-weight:700}
+.body{padding:14px 18px 18px;display:flex;flex-direction:column;gap:10px}
+.badge{align-self:flex-start;display:inline-flex;align-items:center;min-height:28px;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:700}
+.b-ryubatse{background:var(--green);color:#FFFFFF}
+.b-rigaragara{background:var(--yellow);color:var(--ink)}
+.b-impapuro{background:var(--soft);color:var(--green-dk);border:1.5px solid var(--green)}
+.size{font-size:16px;font-weight:800}
+.size span{font-weight:600}
+.size i{color:var(--gold);font-style:normal}
+.where{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--muted)}
+.secure{align-self:flex-start;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:800;color:var(--green);background:var(--soft);padding:7px 10px;border-radius:10px}
+.empty{background:var(--card);border:1.5px dashed #CFDCCB;border-radius:20px;padding:28px 20px;text-align:center}
+.empty strong{display:block;font-size:17px;margin-bottom:14px}
+
+.map-sec{margin-top:28px}
+.map-sec h2{font-size:19px;font-weight:900;letter-spacing:-.02em;margin-bottom:12px}
+.map{position:relative;height:300px;border-radius:22px;overflow:hidden;background:#E4EDDD;border:1.5px solid #D2DFCC}
+@media (min-width:760px){.map{height:420px}}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.zlabel{position:absolute;transform:translate(-50%,8px);font-size:10px;font-weight:700;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;pointer-events:none}
+.pin{position:absolute;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center;pointer-events:none}
+.pin span{background:var(--green);color:#FFFFFF;font-size:12px;font-weight:800;padding:6px 8px;border-radius:9px;border:2px solid var(--yellow);white-space:nowrap}
+.pin i{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--green)}
+
+.cta{position:fixed;left:16px;right:16px;bottom:calc(84px + env(safe-area-inset-bottom,0px));max-width:520px;margin:0 auto;height:58px;border-radius:18px;background:var(--green);color:#FFFFFF;display:flex;align-items:center;justify-content:center;gap:10px;font-size:17px;font-weight:800;text-decoration:none;box-shadow:0 14px 28px -10px rgba(7,61,39,.7);z-index:5}
+.cta span{color:var(--yellow);font-size:21px}
+nav.bottom{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid #E1E8DD;padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));display:flex;justify-content:space-around;z-index:5}
+.navbtn{background:none;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:68px;min-height:56px;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer}
+.navbtn[aria-current="page"]{color:var(--green);font-weight:800}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="#karibu" aria-label="Itongo.bi — Karibu">
+      <span class="logo-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 20h18" stroke="#F6C343" stroke-width="2.2" stroke-linecap="round"/><path d="M5 20V11l7-5 7 5v9" stroke="#FFFFFF" stroke-width="2.2" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="#F6C343" stroke-width="2.2" stroke-linejoin="round"/></svg></span>
+      <span class="logo-word">Itongo<span>.bi</span></span>
+    </a>
+    <div class="icons">
+      <button class="iconbtn" aria-label="Notifications"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="dot"></span></button>
+      <button class="iconbtn" aria-label="Profil"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></button>
+    </div>
+  </header>
+
+  <section class="hero" id="karibu">
+    <svg class="rings" width="190" height="190" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" fill="none" stroke="#F6C343" stroke-width="3"/><circle cx="50" cy="50" r="30" fill="none" stroke="#FFFFFF" stroke-width="3"/></svg>
+    <span class="tag">BUJUMBURA • BURUNDI</span>
+    <h1>Karibu Kugura no kugurisha amatongo</h1>
+    <p>Gura canke gurisha itongo : Duhuza abagurisha n'abagura amatongo</p>
+  </section>
+
+  <section class="filters" aria-label="Filtres">
+    <label class="search" for="q">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B5D3B" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <b>Rondera itongo mu...</b>
+      <input id="q" type="search" placeholder="Rohero, Kinindo, Gatumba..." autocomplete="off">
+    </label>
+
+    <div class="panel">
+      <div class="panel-head"><h2>Hitamwo igiciro</h2><span class="small">Filtres de prix</span></div>
+      <div class="range-label" id="rangeLabel">5M BIF → 100M BIF</div>
+      <label class="slider" for="min">Min<input id="min" type="range" min="5" max="100" step="1" value="5"></label>
+      <label class="slider" for="max">Max<input id="max" type="range" min="5" max="100" step="1" value="100"></label>
+      <div class="ends"><span>5M BIF</span><span>100M BIF</span></div>
+      <div class="chips" id="presets"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><h2>Aho riri</h2><span class="small">Quartier</span></div>
+      <div class="chips" id="zones"></div>
+    </div>
+  </section>
+
+  <section aria-live="polite">
+    <div class="results-head"><h2 id="count">Résultats (8 annonces)</h2><span class="pulse"></span></div>
+    <div class="empty" id="empty" hidden><strong>Nta tongo ribonetse</strong><button class="chip" id="reset" aria-pressed="true">Raba vyose</button></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="map-sec">
+    <h2>Ikarata ya Bujumbura — Ikiyaga ca Tanganyika</h2>
+    <div class="map" id="map">
+      <svg viewBox="0 0 358 260" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 0 H70 C96 40 110 70 128 104 C142 132 120 160 112 190 C104 220 96 240 90 260 H0 Z" fill="#9FC9DE"/>
+        <path d="M70 0 C96 40 110 70 128 104 C142 132 120 160 112 190 C104 220 96 240 90 260" fill="none" stroke="#7FB2CB" stroke-width="2"/>
+        <path d="M150 0 C160 70 210 110 250 150 C280 180 300 220 320 260" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round"/>
+        <path d="M128 120 C190 120 260 110 358 96" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+        <text x="18" y="150" fill="#2F6A86" font-family="Archivo, sans-serif" font-size="12" font-weight="700" font-style="italic">Ikiyaga ca</text>
+        <text x="18" y="166" fill="#2F6A86" font-family="Archivo, sans-serif" font-size="12" font-weight="700" font-style="italic">Tanganyika</text>
+      </svg>
+    </div>
+  </section>
+</div>
+
+<a class="cta" href="#karibu" id="cta">Twiture turakwakira <span>→</span></a>
+
+<nav class="bottom" aria-label="Menu">
+  <button class="navbtn" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z"/></svg>Karibu</button>
+  <button class="navbtn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>Amatongo</button>
+  <button class="navbtn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>Ivyo wipfuza</button>
+  <button class="navbtn"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Profil</button>
+</nav>
+
+<script>
+(function(){
+  // Annonces d'exemple (démonstration) — à remplacer par les vraies annonces.
+  var LISTINGS = [
+    {id:1, price:25, zone:'Rohero',    ares:6,  kind:'ryubatse',   access:'Hegereye ibarabara rinini'},
+    {id:2, price:18, zone:'Gatumba',   ares:6,  kind:'rigaragara', access:'Hegereye ibarabara rinini'},
+    {id:3, price:12, zone:'Mutimbuzi', ares:8,  kind:'rigaragara', access:'Hegereye ibarabara rinini'},
+    {id:4, price:45, zone:'Kinindo',   ares:10, kind:'ryubatse',   access:'Hegereye ibarabara rinini'},
+    {id:5, price:8,  zone:'Kabezi',    ares:15, kind:'rigaragara', access:'Hegereye ikiyaga'},
+    {id:6, price:68, zone:'Rohero',    ares:12, kind:'impapuro',   access:'Hegereye ibarabara rinini'},
+    {id:7, price:32, zone:'Kinindo',   ares:7,  kind:'impapuro',   access:'Hegereye ibarabara rinini'},
+    {id:8, price:15, zone:'Gatumba',   ares:5,  kind:'ryubatse',   access:'Hegereye ikiyaga'}
+  ];
+  var TYPES = {
+    ryubatse:  {label:'Itongo ryubatse', cls:'b-ryubatse', bg:'#D7E6D0'},
+    rigaragara:{label:'Itongo rigaragara', cls:'b-rigaragara', bg:'#F3E6BF'},
+    impapuro:  {label:"Itongo rifise impapuro zemejwe n'amategeko", cls:'b-impapuro', bg:'#DDE9E2'}
+  };
+  var ZONES = ['Rohero','Kinindo','Gatumba','Mutimbuzi','Kabezi'];
+  var POS = {Gatumba:[22,22], Mutimbuzi:[58,14], Rohero:[68,44], Kinindo:[56,66], Kabezi:[42,88]};
+  var PRESETS = [
+    {id:'a', label:'5M - 10M BIF', min:5, max:10},
+    {id:'b', label:'10M - 20M BIF', min:10, max:20},
+    {id:'c', label:'20M - 50M BIF', min:20, max:50},
+    {id:'d', label:'50M+', min:50, max:100}
+  ];
+  var state = {min:5, max:100, preset:null, zone:null, q:''};
+  var favs = {};
+
+  var $ = function(id){ return document.getElementById(id); };
+  var elMin = $('min'), elMax = $('max'), elQ = $('q');
+
+  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+  function chip(label, pressed, onClick){
+    var b = document.createElement('button');
+    b.className = 'chip'; b.type = 'button';
+    b.textContent = label;
+    b.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+    b.addEventListener('click', onClick);
+    return b;
+  }
+
+  function renderChips(){
+    var p = $('presets'); p.innerHTML = '';
+    PRESETS.forEach(function(x){
+      p.appendChild(chip(x.label, state.preset === x.id, function(){
+        if (state.preset === x.id){ state.preset = null; state.min = 5; state.max = 100; }
+        else { state.preset = x.id; state.min = x.min; state.max = x.max; }
+        update();
+      }));
+    });
+    var z = $('zones'); z.innerHTML = '';
+    z.appendChild(chip('Vyose', !state.zone, function(){ state.zone = null; update(); }));
+    ZONES.forEach(function(name){
+      z.appendChild(chip(name === 'Rohero' ? 'Quartier Rohero' : name, state.zone === name, function(){
+        state.zone = state.zone === name ? null : name; update();
+      }));
+    });
+  }
+
+  function filtered(){
+    var q = state.q.trim().toLowerCase();
+    return LISTINGS.filter(function(l){
+      if (l.price < state.min || l.price > state.max) return false;
+      if (state.zone && l.zone !== state.zone) return false;
+      if (q && l.zone.toLowerCase().indexOf(q) === -1 && TYPES[l.kind].label.toLowerCase().indexOf(q) === -1) return false;
+      return true;
+    });
+  }
+
+  var heart = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8102E" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>';
+  var pinIco = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B5D3B" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>';
+  var shield = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0B5D3B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>';
+  var photoIco = '<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg>';
+
+  function renderList(list){
+    $('count').textContent = 'Résultats (' + list.length + ' annonce' + (list.length > 1 ? 's' : '') + ')';
+    $('empty').hidden = list.length !== 0;
+    $('grid').innerHTML = list.map(function(l){
+      var t = TYPES[l.kind];
+      return '<article class="card">' +
+        '<div class="card-top"><div class="price">' + l.price + 'M <small>BIF</small></div>' +
+        '<button class="iconbtn fav" type="button" data-fav="' + l.id + '" aria-label="Ivyo wipfuza" aria-pressed="' + (favs[l.id] ? 'true' : 'false') + '">' + heart + '</button></div>' +
+        '<div class="photo" role="img" aria-label="Ifoto y\'itongo — ' + esc(l.zone) + '" style="background:' + t.bg + '">' + photoIco + '<span>[Ifoto nyayo y\'itongo]</span></div>' +
+        '<div class="body">' +
+          '<span class="badge ' + t.cls + '">' + esc(t.label) + '</span>' +
+          '<div class="size">' + l.ares + ' ares <i>•</i> <span>' + esc(l.access) + '</span></div>' +
+          '<div class="where">' + pinIco + esc(l.zone) + ' • Bujumbura</div>' +
+          '<div class="secure">' + shield + 'Titré</div>' +
+        '</div></article>';
+    }).join('');
+  }
+
+  function renderMap(list){
+    var map = $('map');
+    map.querySelectorAll('.pin,.zlabel').forEach(function(n){ n.remove(); });
+    ZONES.forEach(function(z){
+      var s = document.createElement('span');
+      s.className = 'zlabel'; s.textContent = z;
+      s.style.left = POS[z][0] + '%'; s.style.top = POS[z][1] + '%';
+      map.appendChild(s);
+    });
+    var seen = {};
+    list.forEach(function(l){
+      var k = seen[l.zone] || 0; seen[l.zone] = k + 1;
+      var d = document.createElement('div');
+      d.className = 'pin';
+      d.style.left = (POS[l.zone][0] + k * 10) + '%';
+      d.style.top = (POS[l.zone][1] + k * 3) + '%';
+      d.innerHTML = '<span>' + l.price + 'M</span><i></i>';
+      map.appendChild(d);
+    });
+  }
+
+  function update(){
+    elMin.value = state.min; elMax.value = state.max;
+    $('rangeLabel').textContent = state.min + 'M BIF → ' + state.max + 'M BIF';
+    renderChips();
+    var list = filtered();
+    renderList(list);
+    renderMap(list);
+  }
+
+  elMin.addEventListener('input', function(){ state.min = Math.min(+elMin.value, state.max); state.preset = null; update(); });
+  elMax.addEventListener('input', function(){ state.max = Math.max(+elMax.value, state.min); state.preset = null; update(); });
+  elQ.addEventListener('input', function(){ state.q = elQ.value; update(); });
+  $('reset').addEventListener('click', function(){ state = {min:5, max:100, preset:null, zone:null, q:''}; elQ.value = ''; update(); });
+  $('grid').addEventListener('click', function(e){
+    var b = e.target.closest('[data-fav]'); if (!b) return;
+    var id = b.getAttribute('data-fav'); favs[id] = !favs[id];
+    b.setAttribute('aria-pressed', favs[id] ? 'true' : 'false');
+  });
+
+  update();
+})();
+</script>
+</body>
+</html>
